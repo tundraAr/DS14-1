@@ -63,7 +63,8 @@ content-base подход к рекомендациям фильмов, кото
 > Параметр `max_features` в `TfidfVectorizer` должен быть равен 10000.
 
 ### Task 3
-Рассчитай косинусное расстояние между фильмами. Составь из этой матрицы `pd.DataFrame`. Для дальнейшего удобства, 
+Рассчитай [cosine similarity](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html) 
+между фильмами. Составь из этой матрицы `pd.DataFrame`. Для дальнейшего удобства, 
 колонки и индексы таблицы назови согласно`id` фильма. \
 Сохрани получившийся `DataFrame` c расстояниями в папку [assets](src/assets) с названием `distance.csv`.
 А сам объединенный датасет с фильмами сохрани в папку [assets](src/assets) с названием `movies.csv`.
