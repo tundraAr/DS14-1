@@ -45,22 +45,26 @@ result_title = st.sidebar.selectbox("Выбери название фильма"
 # title='Pirates of the Caribbean: At World\'s End'
 # title = 'Man of Steel'
 title = result_title
-# result_genre = 'Thriller'
-# result_lang = 'fr'
-recommended_movie_names = recsys.recommendation(result_genre, result_lang, title, top_k=TOP_K)
+# result_genre = 'Adventure'
+# result_lang = 'it'
+# recommended_movie_names = recsys.recommendation(result_genre, result_lang, title, top_k=TOP_K)
+# lm = len(recommended_movie_names)
 
 if st.button('Показать рекомендации'):
     # st.write("Рекомендации:")
     recommended_movie_names = recsys.recommendation(result_genre, result_lang, title, top_k=TOP_K)
-    # stnded.write(recommended_movie_names)
-    recommended_movie_posters = omdbapi.get_posters(recommended_movie_names)
-    # st.write(recommended_movie_posters)
-    if len(recommended_movie_names) >= TOP_K:
-        movies_col = st.columns(TOP_K)
+    # st.write(recommended_movie_names)
+    if recommended_movie_names:
+        recommended_movie_posters = omdbapi.get_posters(recommended_movie_names)
+        # st.write(recommended_movie_posters)
+        if len(recommended_movie_names) >= TOP_K:
+            movies_col = st.columns(TOP_K)
+        else:
+            movies_col = st.columns(len(recommended_movie_names))
+        # st.write("movies_col", type(movies_col))
+        for index, col in enumerate(movies_col):
+            with col:
+                st.subheader(recommended_movie_names[index])
+                st.image(recommended_movie_posters[index])
     else:
-        movies_col = st.columns(len(recommended_movie_names))
-    # st.write("movies_col", type(movies_col))
-    for index, col in enumerate(movies_col):
-        with col:
-            st.subheader(recommended_movie_names[index])
-            st.image(recommended_movie_posters[index])
+        st.write("Условия слишком жесткие. Ничего не смогу рекомендовать")

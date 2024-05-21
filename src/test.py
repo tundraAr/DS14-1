@@ -36,34 +36,25 @@ set_genres = recsys.get_genres()
 set_lang = recsys.get_lang()
 
 
-result_genre = st.sidebar.selectbox("Выбери жанр фильма", set_genres)
-# st.write("Result:", result_genre)
-result_lang = st.sidebar.selectbox("Выбери язык оригинала", set_lang)
-result_title = st.sidebar.selectbox("Выбери название фильма", set_title)
-st.write("Result:", result_genre)
-st.write("Result:", result_lang)
-st.write("Result:", result_title)
-
 # тестирую метод получения рекомендаций по названию фильма
-# title='Pirates of the Caribbean: At World\'s End'
+title='Pirates of the Caribbean: At World\'s End'
 # title = 'The Dark Knight'
-title = result_title
-# st.write("Название фильма:", title)
+result_genre = 'Adventure'
+result_lang = 'it'
 
-# st.button("Recommendation", type="primary")
-if st.button('Показать рекомендации'):
-    # st.write("Рекомендации:")
-    recommended_movie_names = recsys.recommendation(title, result_genre, result_lang, top_k=TOP_K)
-    # stnded.write(recommended_movie_names)
-    recommended_movie_posters = omdbapi.get_posters(recommended_movie_names)
-    # st.write(recommended_movie_posters)
-    movies_col = st.columns(TOP_K)
-    # st.write("movies_col", type(movies_col))
-    for index, col in enumerate(movies_col):
-        with col:
-            st.subheader(recommended_movie_names[index])
-            st.image(recommended_movie_posters[index])
+# endpoint = self.url
+# query_params = {"apikey": self.api_key, "t": title}
+# response = requests.get(endpoint, params=query_params)
+# if response.status_code == 200:
+#     movie = response.json()
+#     if len(movie) == 0:
+#         return False
+#     else:
+#         poster_url = movie['Poster']
+#         return poster_url
 
+recommended_movie_names = recsys.recommendation(result_genre, result_lang, title, top_k=TOP_K)
+recommended_movie_posters = omdbapi.get_posters(recommended_movie_names)
 
 # # print(recsys)
 # recommended_movie_names = list(recsys.recommendation(title, top_k=TOP_K))

@@ -61,10 +61,12 @@ class ContentBaseRecSys:
                 # сортируем датафрейм по колонке с расстояниями по убыванию
                 df = movies.sort_values(by='distance', ascending=False)
                 # Создаем список лучших похожих фильмов
-                if len(movies) >= top_k: # проверяем длину итогового датафрейма, чтобы список не вышел за пределы индекса
-                    movie_rec = list(df['title'].iloc[0:top_k])
+                if len(movies) > 0:
+                    if len(movies) >= top_k: # проверяем длину итогового датафрейма, чтобы список не вышел за пределы индекса
+                        movie_rec = list(df['title'].iloc[0:top_k])
+                    else:
+                        movie_rec = list(df['title'].iloc[0:len(movies)])
+                    return movie_rec
                 else:
-                    movie_rec = list(df['title'].iloc[0:(len(movies) - 1)])
-                return movie_rec
-            else:
-                print("Условия слишком жесткие. Ничего не смогу рекомендовать")
+                    # print("Условия слишком жесткие. Ничего не смогу рекомендовать")
+                    return False

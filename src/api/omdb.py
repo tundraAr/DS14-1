@@ -21,6 +21,8 @@ class OMDBApi:
             movie = response.json()
             if len(movie) == 0:
                 return False
+            elif 'Error' in movie:
+                return False
             else:
                 poster_url = movie['Poster']
                 return poster_url
